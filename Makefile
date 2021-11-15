@@ -15,7 +15,7 @@ PROTO_GEN_RUBY_DIR = $(PROTO_GEN_DIR)/ruby
 INCLUDES_DEPENDENCY = /usr/local/include
 
 DOC_PLUGIN = protoc-gen-doc=/usr/bin/protoc-gen-doc
-DOC_DIR = doc
+DOC_DIR = docs
 DOC_OPT = html,index.html
 
 gen:
