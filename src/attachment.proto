@@ -1,0 +1,63 @@
+/**
+ * Intrusion Detection Message Exchange Format (IDMEF) version 2 (revision 0.3)
+ * Protobuf API
+ *
+ * The Attachment class contains information about data linked to a
+ * source, target or vector
+ */
+syntax = "proto3";
+
+message Attachment {
+
+    // Unique identifier among attachments that can be used to reference this
+    // attachment from other classes using the "Attachment" attribute
+    string Name = 1;
+
+    // Attachment filename
+    string FileName = 2;
+
+    // Checksum of the attachment's content. The use of a hash function from
+    // the SHA-2 or SHA-3 family is recommended
+    string Hash = 3;
+
+    // Length of the content (Bytes)
+    int64 Size = 4;
+
+    // References to known sources, related to the attack and/or
+    // vulnerability, and specific to this attachment. This MAY be a URL to
+    // additional info, or a URN (according to RFC 2141) in a registered (IANA)
+    // or unregistered ad-hoc namespace bearing reasonable information value
+    // and uniqueness, such as "urn:clamav:Win.Trojan.Banker-14334"
+    repeated string Ref = 5;
+
+    // If the attachment's content is available and/or recognizable from an
+    // external resource, this is the URI (usually a URL) to that resource.
+    // This MAY also be a URN (according to RFC 2141) in a registered (IANA)
+    // or unregistered ad-hoc namespace bearing reasonable information value
+    // and uniqueness, such as
+    // "urn:mhr:55eaf7effadc07f866d1eaed9c64e7ee49fe081a",
+    // "magnet:?xt=urn:sha1:YNCKHTQCWBTRNJIV4WNAE52SJUQCZO5C"
+    repeated string ExternalURI = 6;
+
+    // Free text human-readable additional note
+    string Note = 7;
+
+    // Internet Media Type of the attachment, according to RFC 2046 and
+    // related. Along with types standardized by IANA also non standard but
+    // widely used media types can be used (for examples see MIME types list
+    // at freeformatter.com)
+    string ContentType = 8;
+
+    // Content encoding. The following encodings are defined in this version of
+    // the specification:
+    // "json" - Content refers to a JSON object which has been serialized to a
+    // string using the serialization procedure defined in RFC 7159.
+    // "base64" - The Content has been serialized using the Base64 encoding
+    // defined in RFC 4648. This encoding SHOULD be used when the content
+    // contains binary data.
+    // If omitted, the "json" encoding should be assumed
+    string ContentEncoding = 9;
+
+    // The attachment's content if the content is included inside the message
+    string Content = 10;
+}

@@ -1,0 +1,2972 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Protocol Documentation</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:400,700,400italic"/>
+    <style>
+      body {
+        width: 60em;
+        margin: 1em auto;
+        color: #222;
+        font-family: "Ubuntu", sans-serif;
+        padding-bottom: 4em;
+      }
+
+      h1 {
+        font-weight: normal;
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+      }
+
+      h2 {
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+        margin: 1.5em 0;
+      }
+
+      h3 {
+        font-weight: normal;
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+      }
+
+      a {
+        text-decoration: none;
+        color: #567e25;
+      }
+
+      table {
+        width: 100%;
+        font-size: 80%;
+        border-collapse: collapse;
+      }
+
+      thead {
+        font-weight: 700;
+        background-color: #dcdcdc;
+      }
+
+      tbody tr:nth-child(even) {
+        background-color: #fbfbfb;
+      }
+
+      td {
+        border: 1px solid #ccc;
+        padding: 0.5ex 2ex;
+      }
+
+      td p {
+        text-indent: 1em;
+        margin: 0;
+      }
+
+      td p:nth-child(1) {
+        text-indent: 0;  
+      }
+
+       
+      .field-table td:nth-child(1) {  
+        width: 10em;
+      }
+      .field-table td:nth-child(2) {  
+        width: 10em;
+      }
+      .field-table td:nth-child(3) {  
+        width: 6em;
+      }
+      .field-table td:nth-child(4) {  
+        width: auto;
+      }
+
+       
+      .extension-table td:nth-child(1) {  
+        width: 10em;
+      }
+      .extension-table td:nth-child(2) {  
+        width: 10em;
+      }
+      .extension-table td:nth-child(3) {  
+        width: 10em;
+      }
+      .extension-table td:nth-child(4) {  
+        width: 5em;
+      }
+      .extension-table td:nth-child(5) {  
+        width: auto;
+      }
+
+       
+      .enum-table td:nth-child(1) {  
+        width: 10em;
+      }
+      .enum-table td:nth-child(2) {  
+        width: 10em;
+      }
+      .enum-table td:nth-child(3) {  
+        width: auto;
+      }
+
+       
+      .scalar-value-types-table tr {
+        height: 3em;
+      }
+
+       
+      #toc-container ul {
+        list-style-type: none;
+        padding-left: 1em;
+        line-height: 180%;
+        margin: 0;
+      }
+      #toc > li > a {
+        font-weight: bold;
+      }
+
+       
+      .file-heading {
+        width: 100%;
+        display: table;
+        border-bottom: 1px solid #aaa;
+        margin: 4em 0 1.5em 0;
+      }
+      .file-heading h2 {
+        border: none;
+        display: table-cell;
+      }
+      .file-heading a {
+        text-align: right;
+        display: table-cell;
+      }
+
+       
+      .badge {
+        width: 1.6em;
+        height: 1.6em;
+        display: inline-block;
+
+        line-height: 1.6em;
+        text-align: center;
+        font-weight: bold;
+        font-size: 60%;
+
+        color: #89ba48;
+        background-color: #dff0c8;
+
+        margin: 0.5ex 1em 0.5ex -1em;
+        border: 1px solid #fbfbfb;
+        border-radius: 1ex;
+      }
+    </style>
+
+    
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+  </head>
+
+  <body>
+
+    <h1 id="title">Protocol Documentation</h1>
+
+    <h2>Table of Contents</h2>
+
+    <div id="toc-container">
+      <ul id="toc">
+        
+          
+          <li>
+            <a href="#analyzer.proto">analyzer.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#.Analyzer"><span class="badge">M</span>Analyzer</a>
+                </li>
+              
+              
+                <li>
+                  <a href="#.Analyzer.AnalyzerCategoryEnum"><span class="badge">E</span>Analyzer.AnalyzerCategoryEnum</a>
+                </li>
+              
+                <li>
+                  <a href="#.Analyzer.AnalyzerDataEnum"><span class="badge">E</span>Analyzer.AnalyzerDataEnum</a>
+                </li>
+              
+                <li>
+                  <a href="#.Analyzer.AnalyzerMethodEnum"><span class="badge">E</span>Analyzer.AnalyzerMethodEnum</a>
+                </li>
+              
+                <li>
+                  <a href="#.Analyzer.AnalyzerTypeEnum"><span class="badge">E</span>Analyzer.AnalyzerTypeEnum</a>
+                </li>
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#attachment.proto">attachment.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#.Attachment"><span class="badge">M</span>Attachment</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#idmefv2.proto">idmefv2.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#.IDMEF"><span class="badge">M</span>IDMEF</a>
+                </li>
+              
+              
+                <li>
+                  <a href="#.IDMEF.CategoryEnum"><span class="badge">E</span>IDMEF.CategoryEnum</a>
+                </li>
+              
+                <li>
+                  <a href="#.IDMEF.CauseEnum"><span class="badge">E</span>IDMEF.CauseEnum</a>
+                </li>
+              
+                <li>
+                  <a href="#.IDMEF.SeverityEnum"><span class="badge">E</span>IDMEF.SeverityEnum</a>
+                </li>
+              
+                <li>
+                  <a href="#.IDMEF.StatusEnum"><span class="badge">E</span>IDMEF.StatusEnum</a>
+                </li>
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#observable.proto">observable.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#.Observable"><span class="badge">M</span>Observable</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#sensor.proto">sensor.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#.Sensor"><span class="badge">M</span>Sensor</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#source.proto">source.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#.Source"><span class="badge">M</span>Source</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#target.proto">target.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#.Target"><span class="badge">M</span>Target</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#vector.proto">vector.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#.Vector"><span class="badge">M</span>Vector</a>
+                </li>
+              
+              
+                <li>
+                  <a href="#.Vector.VectorCategoryEnum"><span class="badge">E</span>Vector.VectorCategoryEnum</a>
+                </li>
+              
+                <li>
+                  <a href="#.Vector.VectorSizeEnum"><span class="badge">E</span>Vector.VectorSizeEnum</a>
+                </li>
+              
+              
+              
+            </ul>
+          </li>
+        
+        <li><a href="#scalar-value-types">Scalar Value Types</a></li>
+      </ul>
+    </div>
+
+    
+      
+      <div class="file-heading">
+        <h2 id="analyzer.proto">analyzer.proto</h2><a href="#title">Top</a>
+      </div>
+      <p>Intrusion Detection Message Exchange Format (IDMEF) version 2 (revision 0.3)</p><p>Protobuf API</p>
+
+      
+        <h3 id=".Analyzer">Analyzer</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>IP</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>IP address (either version 4 or version 6) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Name of the analyzer, which must be reasonably unique, however still
+bear some meaningful sense. Usually denotes hierarchy of
+organizational units which detector belongs to and its own name or
+it can distinguish multiple analyzers running with the same IP </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Hostname</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Hostname of this analyzer. SHOULD be a fully-qualified domain name </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Type</td>
+                  <td><a href="#Analyzer.AnalyzerTypeEnum">Analyzer.AnalyzerTypeEnum</a></td>
+                  <td></td>
+                  <td><p>Analyzer type </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Model</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Generic name, brand, version </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Category</td>
+                  <td><a href="#Analyzer.AnalyzerCategoryEnum">Analyzer.AnalyzerCategoryEnum</a></td>
+                  <td>repeated</td>
+                  <td><p>Analyzer categories </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Data</td>
+                  <td><a href="#Analyzer.AnalyzerDataEnum">Analyzer.AnalyzerDataEnum</a></td>
+                  <td>repeated</td>
+                  <td><p>Data analyzed for detection </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Method</td>
+                  <td><a href="#Analyzer.AnalyzerMethodEnum">Analyzer.AnalyzerMethodEnum</a></td>
+                  <td>repeated</td>
+                  <td><p>Detection method </p></td>
+                </tr>
+              
+                <tr>
+                  <td>GeoLocation</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>GPS coordinates for the sensor </p></td>
+                </tr>
+              
+                <tr>
+                  <td>UnLocation</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Standard UN/LOCODE location </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Location</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Internal location of the agent/sensor </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+        <h3 id=".Analyzer.AnalyzerCategoryEnum">Analyzer.AnalyzerCategoryEnum</h3>
+        <p>Possible analyzer categories</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>Category_1DLiS</td>
+                <td>0</td>
+                <td><p>1D LIDAR Sensor</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_2DLiS</td>
+                <td>1</td>
+                <td><p>2D LIDAR Sensor</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_3DLiS</td>
+                <td>2</td>
+                <td><p>3D LIDAR Sensor</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_1DLaS</td>
+                <td>3</td>
+                <td><p>1D Laser Sensor</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_2DLaS</td>
+                <td>4</td>
+                <td><p>2D Laser Sensor</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_3DLaS</td>
+                <td>5</td>
+                <td><p>3D Laser Sensor</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_VAD</td>
+                <td>6</td>
+                <td><p>Voice Activity Detection</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_HAR</td>
+                <td>7</td>
+                <td><p>Human Activity Recognition</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_FRC</td>
+                <td>8</td>
+                <td><p>Face Recognition Camera</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_VNIR</td>
+                <td>9</td>
+                <td><p>Visible and Near-InfraRed</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_SWIR</td>
+                <td>10</td>
+                <td><p>Short Wavelength InfraRed</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_LWIR</td>
+                <td>11</td>
+                <td><p>Long Wavelength InfraRed</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_MWIR</td>
+                <td>12</td>
+                <td><p>Middle Wavelength InfraRed</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_ADS</td>
+                <td>13</td>
+                <td><p>Anti Drone System</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_ODC</td>
+                <td>14</td>
+                <td><p>Object Detection Camera</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_WEA</td>
+                <td>15</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_DDOS</td>
+                <td>16</td>
+                <td><p>Anti-DDoS protection</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_SPAM</td>
+                <td>17</td>
+                <td><p>Detect Spam, Phishing, etc.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_AV</td>
+                <td>18</td>
+                <td><p>Detect malware (signature)</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_EDR</td>
+                <td>19</td>
+                <td><p>Endpoint Detection and Response</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_FW</td>
+                <td>20</td>
+                <td><p>Firewall</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_NIDS</td>
+                <td>21</td>
+                <td><p>Network Intrusion detection System</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_HIDS</td>
+                <td>22</td>
+                <td><p>Host Intrusion detection System</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_WIDS</td>
+                <td>23</td>
+                <td><p>Wifi Intrusion detection System</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_PROX</td>
+                <td>24</td>
+                <td><p>Proxy: Detect trying to use wrong ACL or wrong TLS session</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_WAF</td>
+                <td>25</td>
+                <td><p>Web Application Firewall</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_HPT</td>
+                <td>26</td>
+                <td><p>Honeypot</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_LOG</td>
+                <td>27</td>
+                <td><p>Log analysis</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_IAM</td>
+                <td>28</td>
+                <td><p>Identity &amp; Access Management</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_VPN</td>
+                <td>29</td>
+                <td><p>Virtual Private Network</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_ETL</td>
+                <td>30</td>
+                <td><p>Ex : Logstash, Fluend, Vector</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_RASP</td>
+                <td>31</td>
+                <td><p>Runtime Application Self Protection</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_BAST</td>
+                <td>32</td>
+                <td><p>Clientless remote desktop gateway</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_NAC</td>
+                <td>33</td>
+                <td><p>Network Access Control</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_SIEM</td>
+                <td>34</td>
+                <td><p>System Information and Event Management</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_NMS</td>
+                <td>35</td>
+                <td><p>Network Management System</p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3 id=".Analyzer.AnalyzerDataEnum">Analyzer.AnalyzerDataEnum</h3>
+        <p>Possible types of data/sensors</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>Data_Light</td>
+                <td>0</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Noise</td>
+                <td>1</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Touch</td>
+                <td>2</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Images</td>
+                <td>3</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Vibration</td>
+                <td>4</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Lidar</td>
+                <td>5</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Thermic</td>
+                <td>6</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Seismic</td>
+                <td>7</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Temperature</td>
+                <td>8</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Rain</td>
+                <td>9</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Water</td>
+                <td>10</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Humidity</td>
+                <td>11</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Particles</td>
+                <td>12</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Contact</td>
+                <td>13</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_MagneticField</td>
+                <td>14</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Acoustics</td>
+                <td>15</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Fog</td>
+                <td>16</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_External</td>
+                <td>17</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Reporting</td>
+                <td>18</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Connection</td>
+                <td>19</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Datagram</td>
+                <td>20</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Content</td>
+                <td>21</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Data</td>
+                <td>22</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_File</td>
+                <td>23</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Flow</td>
+                <td>24</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Log</td>
+                <td>25</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Protocol</td>
+                <td>26</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Host</td>
+                <td>27</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Network</td>
+                <td>28</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Alert</td>
+                <td>29</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Relay</td>
+                <td>30</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_Auth</td>
+                <td>31</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Data_SNMP</td>
+                <td>32</td>
+                <td><p>Simple Network Management Protocol</p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3 id=".Analyzer.AnalyzerMethodEnum">Analyzer.AnalyzerMethodEnum</h3>
+        <p>Possible detection methods</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>Method_Biometric</td>
+                <td>0</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Method_Signature</td>
+                <td>1</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Method_Monitor</td>
+                <td>2</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Method_Policy</td>
+                <td>3</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Method_Statistical</td>
+                <td>4</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Method_AI</td>
+                <td>5</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Method_Heat</td>
+                <td>6</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Method_Movement</td>
+                <td>7</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Method_Blackhole</td>
+                <td>8</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Method_Heuristic</td>
+                <td>9</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Method_Integrity</td>
+                <td>10</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Method_Honeypot</td>
+                <td>11</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Method_Tarpit</td>
+                <td>12</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Method_Recon</td>
+                <td>13</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Method_Correlation</td>
+                <td>14</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Method_Threshold</td>
+                <td>15</td>
+                <td><p>Detection threshold for values</p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3 id=".Analyzer.AnalyzerTypeEnum">Analyzer.AnalyzerTypeEnum</h3>
+        <p>Possible analyzer types</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>Type_Cyber</td>
+                <td>0</td>
+                <td><p>The analyzer is a cyber analyzer</p></td>
+              </tr>
+            
+              <tr>
+                <td>Type_Physical</td>
+                <td>1</td>
+                <td><p>The analyzer is a physical analyzer</p></td>
+              </tr>
+            
+              <tr>
+                <td>Type_Availability</td>
+                <td>2</td>
+                <td><p>The analyzer is an availability analyzer</p></td>
+              </tr>
+            
+              <tr>
+                <td>Type_Combined</td>
+                <td>3</td>
+                <td><p>The analyzer is an other type of analyzer</p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="attachment.proto">attachment.proto</h2><a href="#title">Top</a>
+      </div>
+      <p>Intrusion Detection Message Exchange Format (IDMEF) version 2 (revision 0.3)</p><p>Protobuf API</p><p>The Attachment class contains information about data linked to a</p><p>source, target or vector</p>
+
+      
+        <h3 id=".Attachment">Attachment</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Unique identifier among attachments that can be used to reference this
+attachment from other classes using the &#34;Attachment&#34; attribute </p></td>
+                </tr>
+              
+                <tr>
+                  <td>FileName</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Attachment filename </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Hash</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Checksum of the attachment&#39;s content. The use of a hash function from
+the SHA-2 or SHA-3 family is recommended </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Size</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td></td>
+                  <td><p>Length of the content (Bytes) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Ref</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>References to known sources, related to the attack and/or
+vulnerability, and specific to this attachment. This MAY be a URL to
+additional info, or a URN (according to RFC 2141) in a registered (IANA)
+or unregistered ad-hoc namespace bearing reasonable information value
+and uniqueness, such as &#34;urn:clamav:Win.Trojan.Banker-14334&#34; </p></td>
+                </tr>
+              
+                <tr>
+                  <td>ExternalURI</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>If the attachment&#39;s content is available and/or recognizable from an
+external resource, this is the URI (usually a URL) to that resource.
+This MAY also be a URN (according to RFC 2141) in a registered (IANA)
+or unregistered ad-hoc namespace bearing reasonable information value
+and uniqueness, such as
+&#34;urn:mhr:55eaf7effadc07f866d1eaed9c64e7ee49fe081a&#34;,
+&#34;magnet:?xt=urn:sha1:YNCKHTQCWBTRNJIV4WNAE52SJUQCZO5C&#34; </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Note</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Free text human-readable additional note </p></td>
+                </tr>
+              
+                <tr>
+                  <td>ContentType</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Internet Media Type of the attachment, according to RFC 2046 and
+related. Along with types standardized by IANA also non standard but
+widely used media types can be used (for examples see MIME types list
+at freeformatter.com) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>ContentEncoding</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Content encoding. The following encodings are defined in this version of
+the specification:
+&#34;json&#34; - Content refers to a JSON object which has been serialized to a
+string using the serialization procedure defined in RFC 7159.
+&#34;base64&#34; - The Content has been serialized using the Base64 encoding
+defined in RFC 4648. This encoding SHOULD be used when the content
+contains binary data.
+If omitted, the &#34;json&#34; encoding should be assumed </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Content</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>The attachment&#39;s content if the content is included inside the message </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="idmefv2.proto">idmefv2.proto</h2><a href="#title">Top</a>
+      </div>
+      <p>Intrusion Detection Message Exchange Format (IDMEF) version 2 (revision 0.3)</p><p>Protobuf API</p>
+
+      
+        <h3 id=".IDMEF">IDMEF</h3>
+        <p>Root message</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Version</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Version of the IDMEFv2 Format </p></td>
+                </tr>
+              
+                <tr>
+                  <td>ID</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>128-bit Universally Unique IDentifier (UUID)
+either UUID version 4 (random) or 5 (SHA-1) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Entity</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Tenant ID to support multi-tenancy
+(e.g. decentralized infrastructure, local agency, subsidiary 
+company, etc.). Should be used when there are multiple
+sites/locations or multiple tenants (e.g. MSSPs) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Category</td>
+                  <td><a href="#IDMEF.CategoryEnum">IDMEF.CategoryEnum</a></td>
+                  <td>repeated</td>
+                  <td><p>The ENISA:RIST incident category &amp; subcategory </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Cause</td>
+                  <td><a href="#IDMEF.CauseEnum">IDMEF.CauseEnum</a></td>
+                  <td></td>
+                  <td><p>Alert cause&#39;s origin, if known at the time of detection.
+If unknown, this key should not be defined and may be filled later
+on by a manager or a human operator </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Description</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Short free text human-readable description </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Status</td>
+                  <td><a href="#IDMEF.StatusEnum">IDMEF.StatusEnum</a></td>
+                  <td></td>
+                  <td><p>Alert state in the overall alert lifecycle </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Severity</td>
+                  <td><a href="#IDMEF.SeverityEnum">IDMEF.SeverityEnum</a></td>
+                  <td></td>
+                  <td><p>Severity of the alert </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Confidence</td>
+                  <td><a href="#float">float</a></td>
+                  <td></td>
+                  <td><p>Confidence of detector in its own reliability of this particular
+detection. (0 – surely false, 1 – no doubts)s </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Note</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Free text human-readable additional note, possibly longer
+description of incident if not obvious </p></td>
+                </tr>
+              
+                <tr>
+                  <td>CreateTime</td>
+                  <td><a href="#google.protobuf.Timestamp">google.protobuf.Timestamp</a></td>
+                  <td></td>
+                  <td><p>Message creation timestamp. May point out delay between detection
+and processing of data </p></td>
+                </tr>
+              
+                <tr>
+                  <td>StartTime</td>
+                  <td><a href="#google.protobuf.Timestamp">google.protobuf.Timestamp</a></td>
+                  <td></td>
+                  <td><p>Deduced start of the event, or just time of the event if it is solitary </p></td>
+                </tr>
+              
+                <tr>
+                  <td>CeaseTime</td>
+                  <td><a href="#google.protobuf.Timestamp">google.protobuf.Timestamp</a></td>
+                  <td></td>
+                  <td><p>Deduced end of the event </p></td>
+                </tr>
+              
+                <tr>
+                  <td>DeleteTime</td>
+                  <td><a href="#google.protobuf.Timestamp">google.protobuf.Timestamp</a></td>
+                  <td></td>
+                  <td><p>Message deletion timestamp. MUST be specified if the message has to be
+deleted after this date for technical, organizational or ethical reasons </p></td>
+                </tr>
+              
+                <tr>
+                  <td>AltNames</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>Alternative identifiers; strings which help pair the event to internal
+systems&#39; information (for example tickets in request tracking systems) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>AltCategory</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>Alternate category from another reference than RIST (e.g. MISP,
+MITRE ATT@CK or another proprietary internal reference) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Ref</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>References to known sources, related to the alert and/or vulnerability,
+and specific to this alert. This MAY be a URL to additional info, or a
+URN (according to RFC 2141) in a registered (IANA) or unregistered
+ad-hoc namespace bearing reasonable information value and uniqueness,
+such as &#34;urn:cve:CVE-2013-2266 </p></td>
+                </tr>
+              
+                <tr>
+                  <td>CorrelID</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>Identifiers for the  messages which were used as information sources to
+create this message, in case the message has been created based on
+correlation/analysis/deduction from other messages </p></td>
+                </tr>
+              
+                <tr>
+                  <td>AggrCondition</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>List of IDMEF fields that are shared (with the same value) by all
+aggregated events. Should be sent mostly by intermediary nodes, which
+detect duplicates, or aggregate events, spanning multiple detection
+windows, into a longer one.
+IDMEF fields syntax:
+&lt;field&gt; for top-level fields. E.g. &#34;CeaseTime&#34;
+&lt;class&gt;.&lt;field&gt; for subfields. E.g. &#34;Source.IP&#34;
+&lt;field&gt;(&lt;N&gt;) to reference the Nth element (0-based) inside a list.
+N defaults to 0 if omitted. E.g. &#34;Source.IP(0)&#34; refers to the first IP
+of the first source.
+The &#34;StartTime&#34; and &#34;CeaseTime&#34; fields are used to describe the
+aggregation timeframe, in conjunction with this field </p></td>
+                </tr>
+              
+                <tr>
+                  <td>PredID</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>Identifiers of previous messages which are obsoleted by this message.
+The obsoleted alert should no longer be used. This field can be used
+to &#34;update&#34; an alert </p></td>
+                </tr>
+              
+                <tr>
+                  <td>RelID</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>Other messages related to this message </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Analyzer</td>
+                  <td><a href="#Analyzer">Analyzer</a></td>
+                  <td></td>
+                  <td><p>The Analyzer class identifies the analyzer from which the message
+originates </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Sensor</td>
+                  <td><a href="#Sensor">Sensor</a></td>
+                  <td>repeated</td>
+                  <td><p>The Sensor class identifies the sensor used by the analyzer for
+its analysis </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Source</td>
+                  <td><a href="#Source">Source</a></td>
+                  <td>repeated</td>
+                  <td><p>The Source class contains information about the possible source(s)
+of the event(s) that generated this message </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Target</td>
+                  <td><a href="#Target">Target</a></td>
+                  <td>repeated</td>
+                  <td><p>The Target class contains information about the possible target(s)
+of the event(s) that generated this message </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Vector</td>
+                  <td><a href="#Vector">Vector</a></td>
+                  <td>repeated</td>
+                  <td><p>The Vector class contains information about the vector(s) of the
+event(s) that generated this message </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Attachment</td>
+                  <td><a href="#Attachment">Attachment</a></td>
+                  <td>repeated</td>
+                  <td><p>The Attachment class contains information about data linked to a
+source, target or vector </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Observable</td>
+                  <td><a href="#Observable">Observable</a></td>
+                  <td>repeated</td>
+                  <td><p>The Observable class contains information about metadata linked to
+a source, target or vector </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+        <h3 id=".IDMEF.CategoryEnum">IDMEF.CategoryEnum</h3>
+        <p>Possible alert categories</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>Category_Abusive_Spam</td>
+                <td>0</td>
+                <td><p>Or &#39;Unsolicited Bulk Email&#39;, this means that the recipient has
+not granted verifiable permission for the message to be sent and that
+the message is sent as part of a larger collection of messages, all
+having a functionally comparable content. This IOC refers to
+resources, which make up a SPAM infrastructure, be it a harvesters
+like address verification, URLs in spam e-mails etc.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Abusive_Harassment</td>
+                <td>1</td>
+                <td><p>Discretization or discrimination of somebody, e.g. cyber stalking,
+racism or threats against one or more individuals.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Abusive_Illicit</td>
+                <td>2</td>
+                <td><p>Child Sexual Exploitation (CSE), Sexual content, glorification of
+violence, etc.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Malicious_System</td>
+                <td>3</td>
+                <td><p>System infected with malware, e.g. PC, smartphone or server infected
+with a rootkit. Most often this refers to a connection to a sinkholed
+C2 server</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Malicious_Botnet</td>
+                <td>4</td>
+                <td><p>Command-and-control server contacted by malware on infected
+systems</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Malicious_Distribution</td>
+                <td>5</td>
+                <td><p>URI used for malware distribution, e.g. a download URL included in
+fake invoice malware spam or exploit-kits (on websites).</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Malicious_Configuration</td>
+                <td>6</td>
+                <td><p>URI hosting a malware configuration file, e.g. web-injects for a
+banking trojan</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Recon_Scanning</td>
+                <td>7</td>
+                <td><p>Attacks that send requests to a system to discover weaknesses.
+This also includes testing processes to gather information on hosts,
+services and accounts. Examples: fingerd, DNS querying, ICMP, SMTP
+(EXPN, RCPT, ...), port scanning.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Recon_Sniffing</td>
+                <td>8</td>
+                <td><p>Observing and recording of network traffic (wiretapping).</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Recon_SocialEngineering</td>
+                <td>9</td>
+                <td><p>Gathering information from a human being in a non-technical way
+(e.g. lies, tricks, bribes, or threats).</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Attempt_Exploit</td>
+                <td>10</td>
+                <td><p>An attempt to compromise a system or to disrupt any service by
+exploiting vulnerabilities with a standardised identifier such as
+CVE name (e.g. buffer overflow, backdoor, cross site
+scripting, etc.)</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Attempt_Login</td>
+                <td>11</td>
+                <td><p>Multiple login attempts (Guessing / cracking of passwords, brute
+force). This IOC refers to a resource, which has been observed to
+perform brute-force attacks over a given application protocol.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Attempt_NewSignature</td>
+                <td>12</td>
+                <td><p>An attack using an unknown exploit.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Intrusion_AdminCompromise</td>
+                <td>13</td>
+                <td><p>Compromise of a system where the attacker gained administrative
+privileges.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Intrusion_UserCompromise</td>
+                <td>14</td>
+                <td><p>Compromise of a system using an unprivileged (user/service)
+account.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Intrusion_AppCompromise</td>
+                <td>15</td>
+                <td><p>Compromise of an application by exploiting (un-)known software
+vulnerabilities, e.g. SQL injection.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Intrusion_SysCompromise</td>
+                <td>16</td>
+                <td><p>Compromise of a system, e.g. unauthorised logins or commands.
+This includes compromising attempts on honeypot systems.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Intrusion_Burglary</td>
+                <td>17</td>
+                <td><p>Physical intrusion, e.g. into corporate building or data-centre.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Availability_DoS</td>
+                <td>18</td>
+                <td><p>Denial of Service attack, e.g. sending specially crafted requests
+to a web application which causes the application to crash or
+slow down.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Availability_DDoS</td>
+                <td>19</td>
+                <td><p>Distributed Denial of Service attack, e.g. SYN-Flood or UDP-based
+reflection/amplification attacks.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Availability_Misconf</td>
+                <td>20</td>
+                <td><p>Software misconfiguration resulting in service availability issues,
+e.g. DNS server with outdated DNSSEC Root Zone KSK.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Availability_Theft</td>
+                <td>21</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Availability_Sabotage</td>
+                <td>22</td>
+                <td><p>Physical sabotage, e.g cutting wires or malicious arson.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Availability_Outage</td>
+                <td>23</td>
+                <td><p>Outage caused e.g. by air condition failure or natural disaster.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Availability_Failure</td>
+                <td>24</td>
+                <td><p>Failure, malfunction (e.g. : bug, wear, faults, etc.)</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Information_UnauthorizedAccess</td>
+                <td>25</td>
+                <td><p>Unauthorised access to information, e.g. by abusing stolen login
+credentials for a system or application, intercepting traffic or
+gaining access to physical documents.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Information_UnauthorizedModification</td>
+                <td>26</td>
+                <td><p>Unauthorised modification of information, e.g. by an attacker
+abusing stolen login credentials for a system or application or
+a ransomware encrypting data. Also includes defacements.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Information_DataLoss</td>
+                <td>27</td>
+                <td><p>Loss of data, e.g. caused by harddisk failure or physical theft.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Information_DataLeak</td>
+                <td>28</td>
+                <td><p>Leaked confidential information like credentials or personal data.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Fraud_UnauthorizedUsage</td>
+                <td>29</td>
+                <td><p>Using resources for unauthorised purposes including profit-making
+ventures, e.g. the use of e-mail to participate in illegal profit
+chain letters or pyramid schemes.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Fraud_Copyright</td>
+                <td>30</td>
+                <td><p>Offering or Installing copies of unlicensed commercial software or
+other copyright protected materials (Warez).</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Fraud_Masquerade</td>
+                <td>31</td>
+                <td><p>Type of attack in which one entity illegitimately impersonates the
+identity of another in order to benefit from it.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Fraud_Phishing</td>
+                <td>32</td>
+                <td><p>Masquerading as another entity in order to persuade the user to
+reveal private credentials. This IOC most often refers to a URL,
+which is used to phish user credentials.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Vulnerable_Crypto</td>
+                <td>33</td>
+                <td><p>Publicly accessible services offering weak crypto, e.g. web
+servers susceptible to POODLE/FREAK attacks.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Vulnerable_DDoS</td>
+                <td>34</td>
+                <td><p>Publicly accessible services that can be abused for conducting DDoS
+reflection/amplification attacks, e.g. DNS open-resolvers or NTP
+servers with monlist enabled.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Vulnerable_Surface</td>
+                <td>35</td>
+                <td><p>Potentially unwanted publicly accessible services, e.g. Telnet, RDP
+or VNC.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Vulnerable_Disclosure</td>
+                <td>36</td>
+                <td><p>Publicly accessible services potentially disclosing sensitive
+information, e.g. SNMP or Redis.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Vulnerable_System</td>
+                <td>37</td>
+                <td><p>A system which is vulnerable to certain attacks.
+Example: misconfigured client proxy settings (example: WPAD),
+outdated operating system version, XSS vulnerabilities, etc.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Geophysical_Earthquake</td>
+                <td>38</td>
+                <td><p>A hazard originating from solid earth. This term is used
+interchangeably with the term geological hazard.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Geophysical_MassMovement</td>
+                <td>39</td>
+                <td><p>A hazard originating from solid earth. This term is used
+interchangeably with the term geological hazard.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Geophysical_Volcanic</td>
+                <td>40</td>
+                <td><p>A hazard originating from solid earth. This term is used
+interchangeably with the term geological hazard.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Meteorological_Temperature</td>
+                <td>41</td>
+                <td><p>A hazard caused by short-lived, micro- to meso-scale extreme
+weather and atmospheric conditions that last from minutes to days.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Meteorological_Fog</td>
+                <td>42</td>
+                <td><p>A hazard caused by short-lived, micro- to meso-scale extreme
+weather and atmospheric conditions that last from minutes to days.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Meteorological_Storm</td>
+                <td>43</td>
+                <td><p>A hazard caused by short-lived, micro- to meso-scale extreme
+weather and atmospheric conditions that last from minutes to days.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Hydrological_Flood</td>
+                <td>44</td>
+                <td><p>A hazard caused by the occurrence, movement, and distribution
+of surface and subsurface freshwater and saltwater.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Hydrological_Landslide</td>
+                <td>45</td>
+                <td><p>A hazard caused by the occurrence, movement, and distribution
+of surface and subsurface freshwater and saltwater.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Hydrological_Wave</td>
+                <td>46</td>
+                <td><p>A hazard caused by the occurrence, movement, and distribution
+of surface and subsurface freshwater and saltwater.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Climatological_Drought</td>
+                <td>47</td>
+                <td><p>A hazard caused by long-lived, meso- to macro-scale atmospheric
+processes ranging from intra-seasonal to multi-decadal climate
+variability.​</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Climatological_LakeOutburst</td>
+                <td>48</td>
+                <td><p>A hazard caused by long-lived, meso- to macro-scale atmospheric
+processes ranging from intra-seasonal to multi-decadal climate
+variability.​</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Climatological_Wildfire</td>
+                <td>49</td>
+                <td><p>A hazard caused by long-lived, meso- to macro-scale atmospheric
+processes ranging from intra-seasonal to multi-decadal climate
+variability.​</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Biological_Epidemic</td>
+                <td>50</td>
+                <td><p>A hazard caused by the exposure to living organisms and their
+toxic substances (e.g. venom, mold) or vector-borne diseases that
+they may carry. Examples are venomous wildlife and insects, poisonous
+plants, and mosquitoes carrying disease-causing agents such as
+parasites, bacteria, or viruses (e.g. malaria).</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Biological_Insect</td>
+                <td>51</td>
+                <td><p>A hazard caused by the exposure to living organisms and their
+toxic substances (e.g. venom, mold) or vector-borne diseases that
+they may carry. Examples are venomous wildlife and insects, poisonous
+plants, and mosquitoes carrying disease-causing agents such as
+parasites, bacteria, or viruses (e.g. malaria).</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Biological_Animal</td>
+                <td>52</td>
+                <td><p>A hazard caused by the exposure to living organisms and their
+toxic substances (e.g. venom, mold) or vector-borne diseases that
+they may carry. Examples are venomous wildlife and insects, poisonous
+plants, and mosquitoes carrying disease-causing agents such as
+parasites, bacteria, or viruses (e.g. malaria).</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Extraterrestrial_Impact</td>
+                <td>53</td>
+                <td><p>A hazard caused by asteroids, meteoroids, and comets as they pass
+near-earth, enter the Earth’s atmosphere, and/or strike the
+Earth, and by changes in interplanetary conditions that effect the
+Earth’s magnetosphere, ionosphere, and thermosphere.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Extraterrestrial_SpaceWeather</td>
+                <td>54</td>
+                <td><p>A hazard caused by asteroids, meteoroids, and comets as they pass
+near-earth, enter the Earth’s atmosphere, and/or strike the
+Earth, and by changes in interplanetary conditions that effect the
+Earth’s magnetosphere, ionosphere, and thermosphere.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Other_Uncategorized</td>
+                <td>55</td>
+                <td><p>All incidents which don&#39;t fit in one of the given categories should
+be put into this class or the incident is not categorised.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Other_Undetermined</td>
+                <td>56</td>
+                <td><p>The categorisation of the incident is unknown/undetermined.</p></td>
+              </tr>
+            
+              <tr>
+                <td>Category_Test_Test</td>
+                <td>57</td>
+                <td><p>Meant for testing.</p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3 id=".IDMEF.CauseEnum">IDMEF.CauseEnum</h3>
+        <p>Possible alert causes</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>Cause_Normal</td>
+                <td>0</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Cause_Error</td>
+                <td>1</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Cause_Malicious</td>
+                <td>2</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Cause_Malfunction</td>
+                <td>3</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Cause_Natural</td>
+                <td>4</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Cause_Unknown</td>
+                <td>5</td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3 id=".IDMEF.SeverityEnum">IDMEF.SeverityEnum</h3>
+        <p>Possible alert severities</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>Severity_Unknown</td>
+                <td>0</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Severity_Info</td>
+                <td>1</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Severity_Low</td>
+                <td>2</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Severity_Medium</td>
+                <td>3</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Severity_High</td>
+                <td>4</td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3 id=".IDMEF.StatusEnum">IDMEF.StatusEnum</h3>
+        <p>Possible alert statuses</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>Status_Event</td>
+                <td>0</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Status_Incident</td>
+                <td>1</td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="observable.proto">observable.proto</h2><a href="#title">Top</a>
+      </div>
+      <p>Intrusion Detection Message Exchange Format (IDMEF) version 2 (revision 0.3)</p><p>Protobuf API</p><p>The Observable class contains information about metadata linked to a</p><p>source, target or vector</p>
+
+      
+        <h3 id=".Observable">Observable</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Unique identifier among observables that can be used to reference this
+observable from other classes using the &#34;Observable&#34; attribute </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Reference</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Name of the reference from where the observable is specified </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Content</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Observable content </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="sensor.proto">sensor.proto</h2><a href="#title">Top</a>
+      </div>
+      <p>Intrusion Detection Message Exchange Format (IDMEF) version 2 (revision 0.3)</p><p>Protobuf API</p><p>The Sensor class identifies the sensor used by the analyzer for its analysis</p>
+
+      
+        <h3 id=".Sensor">Sensor</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>IP</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>The sensor&#39;s IP address (either version 4 or version 6) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Name of the sensor, which must be reasonably unique, however still bear
+some meaningful sense. Usually denotes the hierarchy of organizational
+units the detector belongs to and its own name. May also be used to
+help distinguish sensors running with the same IP address </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Hostname</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Hostname of this sensor. Should be a fully qualified domain name, but
+may not conform exactly because values extracted from logs, messages,
+DNS, etc. may themselves be malformed. An empty string can be used to
+explicitly state that this value was inquired but not found
+(missing DNS name) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Model</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Generic name, brand, version </p></td>
+                </tr>
+              
+                <tr>
+                  <td>UnLocation</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Standard UN/LOCODE location </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Location</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Internal location of the sensor </p></td>
+                </tr>
+              
+                <tr>
+                  <td>CaptureZone</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>String that describes the capture zone of the sensor in a serialized
+JSON string </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="source.proto">source.proto</h2><a href="#title">Top</a>
+      </div>
+      <p>Intrusion Detection Message Exchange Format (IDMEF) version 2 (revision 0.3)</p><p>Protobuf API</p><p>The Source class contains information about the possible source(s) of the</p><p>event(s) that generated this message</p>
+
+      
+        <h3 id=".Source">Source</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>UnLocation</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Standard UN/LOCODE location for this source </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Location</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Internal location description (for internal sources) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>GeoLocation</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>GPS coordinates for the source </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Note</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Free text human-readable additional note </p></td>
+                </tr>
+              
+                <tr>
+                  <td>TI</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>Threat intelligence information about the source </p></td>
+                </tr>
+              
+                <tr>
+                  <td>IP</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Source IP address (either version 4 or version 6) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Hostname</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Hostname of this source. Should be a fully qualified domain name, but
+may not conform exactly because values extracted from logs, messages,
+DNS, etc. may themselves be malformed. An empty string can be used to
+explicitly state that this value was inquired but not found
+(missing DNS name) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>User</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>User ID or login responsible for the alert </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Email</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Email address (e.g. the value of the &#34;Reply-To&#34; or &#34;From&#34; header
+inside a phishing e-mail) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Protocol</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>Protocols related to connections from/to this source/target.
+If several protocols are stacked, they must be ordered from the lowest
+(the closest to the medium) to the highest (the closest to the
+application) according to the ISO/OSI model </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Port</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td>repeated</td>
+                  <td><p>Source ports involved </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Attachment</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>Identifiers for attachments related to this source. Each identifier
+listed here MUST match the &#34;Name&#34; attribute for one of the attachments
+described using the &#34;Attachment&#34; class </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Observable</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>Identifiers for observables related to this source. Each identifier
+listed here MUST match the &#34;Name&#34; attribute for one of the observables
+described using the &#34;Observable&#34; class </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="target.proto">target.proto</h2><a href="#title">Top</a>
+      </div>
+      <p>Intrusion Detection Message Exchange Format (IDMEF) version 2 (revision 0.3)</p><p>Protobuf API</p><p>The Target class contains information about the possible target(s) of the</p><p>event(s) that generated this message</p>
+
+      
+        <h3 id=".Target">Target</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>UnLocation</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Standard UN/LOCODE location for this target </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Location</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Internal location description (for internal target) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>GeoLocation</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>GPS coordinates for the target </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Note</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Free text human-readable additional note </p></td>
+                </tr>
+              
+                <tr>
+                  <td>IP</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Target IP address (either version 4 or version 6) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Hostname</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Hostname of this target. Should be a fully qualified domain name, but
+may not conform exactly because values extracted from logs, messages,
+DNS, etc. may themselves be malformed. An empty string can be used to
+explicitly state that this value was inquired but not found
+(missing DNS name) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Service</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Service(s)/process(es) impacted by the event/alert </p></td>
+                </tr>
+              
+                <tr>
+                  <td>User</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>User ID or login responsible for the alert </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Email</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Email address (e.g. the value of the &#34;To&#34; header inside a phishing
+e-mail) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Port</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td>repeated</td>
+                  <td><p>Target ports affected </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Attachment</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>Identifiers for attachments related to this target. Each identifier
+listed here MUST match the &#34;Name&#34; attribute for one of the attachments
+described using the &#34;Attachment&#34; class </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Observable</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>Identifiers for observables related to this target. Each identifier
+listed here MUST match the &#34;Name&#34; attribute for one of the observables
+described using the &#34;Observable&#34; class </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="vector.proto">vector.proto</h2><a href="#title">Top</a>
+      </div>
+      <p>Intrusion Detection Message Exchange Format (IDMEF) version 2 (revision 0.3)</p><p>Protobuf API</p><p>The Vector class contains information about the vector(s) of the event(s)</p><p>that generated this message</p>
+
+      
+        <h3 id=".Vector">Vector</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>Category</td>
+                  <td><a href="#Vector.VectorCategoryEnum">Vector.VectorCategoryEnum</a></td>
+                  <td>repeated</td>
+                  <td><p>Category for the detected &#34;vector&#34; </p></td>
+                </tr>
+              
+                <tr>
+                  <td>TI</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>Threat intelligence information about the vector </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Name of the detected vector or &#34;Unknown&#34; </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Size</td>
+                  <td><a href="#Vector.VectorSizeEnum">Vector.VectorSizeEnum</a></td>
+                  <td></td>
+                  <td><p>Average size of the detected vector </p></td>
+                </tr>
+              
+                <tr>
+                  <td>UnLocation</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>UN Location of the vector (e.g. Storm detected on Athens) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>GeoLocation</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>GPS coordinates for the vector, providing event geolocation (i.e. where
+a man/car/animal was detected, a storm/drought/fire risk was
+predicted, etc.) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>GeoRadius</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Estimated radius around the provided geolocation (error margin)
+in meters. The value can be very precise or approximated (e.g. 100 m) </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Location</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Internal location </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Note</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Free text human-readable additional note </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Attachment</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>Identifiers for attachments related to this vector. Each identifier
+listed here MUST match the &#34;Name&#34; attribute for one of the attachments
+described using the &#34;Attachment&#34; class </p></td>
+                </tr>
+              
+                <tr>
+                  <td>Observable</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>Identifiers for observables related to this vector. Each identifier
+listed here MUST match the &#34;Name&#34; attribute for one of the observables
+described using the &#34;Observable&#34; class </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+        <h3 id=".Vector.VectorCategoryEnum">Vector.VectorCategoryEnum</h3>
+        <p>Possible categories for attack vectors</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>Vector_Unknown</td>
+                <td>0</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Face</td>
+                <td>1</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_RunningMan</td>
+                <td>2</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Human</td>
+                <td>3</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Man</td>
+                <td>4</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Woman</td>
+                <td>5</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Chilren</td>
+                <td>6</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Animal</td>
+                <td>7</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Object</td>
+                <td>8</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Blast</td>
+                <td>9</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Fire</td>
+                <td>10</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Wind</td>
+                <td>11</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Snow</td>
+                <td>12</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Rain</td>
+                <td>13</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Chemical</td>
+                <td>14</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Smoke</td>
+                <td>15</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Vapors</td>
+                <td>16</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Drug</td>
+                <td>17</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Device</td>
+                <td>18</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Drone</td>
+                <td>19</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Car</td>
+                <td>20</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Truck</td>
+                <td>21</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Vehicle</td>
+                <td>22</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Bird</td>
+                <td>23</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Storm</td>
+                <td>24</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_HighTemperature</td>
+                <td>25</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Artifact</td>
+                <td>26</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_AutonomousSystem</td>
+                <td>27</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Directory</td>
+                <td>28</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_DomainName</td>
+                <td>29</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_EmailAddress</td>
+                <td>30</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_EmailMessage</td>
+                <td>31</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_File</td>
+                <td>32</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_IPv4Address</td>
+                <td>33</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_IPv6Address</td>
+                <td>34</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Mutex</td>
+                <td>35</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_NetworkTraffic</td>
+                <td>36</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Process</td>
+                <td>37</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_URL</td>
+                <td>38</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_UserAccount</td>
+                <td>39</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_WindowsRegistryKey</td>
+                <td>40</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_X509Certificate</td>
+                <td>41</td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3 id=".Vector.VectorSizeEnum">Vector.VectorSizeEnum</h3>
+        <p>Possible sizes for attack vectors</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>Vector_Small</td>
+                <td>0</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Medium</td>
+                <td>1</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Large</td>
+                <td>2</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Vector_Huge</td>
+                <td>3</td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+
+      
+
+      
+    
+
+    <h2 id="scalar-value-types">Scalar Value Types</h2>
+    <table class="scalar-value-types-table">
+      <thead>
+        <tr><td>.proto Type</td><td>Notes</td><td>C++</td><td>Java</td><td>Python</td><td>Go</td><td>C#</td><td>PHP</td><td>Ruby</td></tr>
+      </thead>
+      <tbody>
+        
+          <tr id="double">
+            <td>double</td>
+            <td></td>
+            <td>double</td>
+            <td>double</td>
+            <td>float</td>
+            <td>float64</td>
+            <td>double</td>
+            <td>float</td>
+            <td>Float</td>
+          </tr>
+        
+          <tr id="float">
+            <td>float</td>
+            <td></td>
+            <td>float</td>
+            <td>float</td>
+            <td>float</td>
+            <td>float32</td>
+            <td>float</td>
+            <td>float</td>
+            <td>Float</td>
+          </tr>
+        
+          <tr id="int32">
+            <td>int32</td>
+            <td>Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>int</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>integer</td>
+            <td>Bignum or Fixnum (as required)</td>
+          </tr>
+        
+          <tr id="int64">
+            <td>int64</td>
+            <td>Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>int/long</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>integer/string</td>
+            <td>Bignum</td>
+          </tr>
+        
+          <tr id="uint32">
+            <td>uint32</td>
+            <td>Uses variable-length encoding.</td>
+            <td>uint32</td>
+            <td>int</td>
+            <td>int/long</td>
+            <td>uint32</td>
+            <td>uint</td>
+            <td>integer</td>
+            <td>Bignum or Fixnum (as required)</td>
+          </tr>
+        
+          <tr id="uint64">
+            <td>uint64</td>
+            <td>Uses variable-length encoding.</td>
+            <td>uint64</td>
+            <td>long</td>
+            <td>int/long</td>
+            <td>uint64</td>
+            <td>ulong</td>
+            <td>integer/string</td>
+            <td>Bignum or Fixnum (as required)</td>
+          </tr>
+        
+          <tr id="sint32">
+            <td>sint32</td>
+            <td>Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>int</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>integer</td>
+            <td>Bignum or Fixnum (as required)</td>
+          </tr>
+        
+          <tr id="sint64">
+            <td>sint64</td>
+            <td>Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>int/long</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>integer/string</td>
+            <td>Bignum</td>
+          </tr>
+        
+          <tr id="fixed32">
+            <td>fixed32</td>
+            <td>Always four bytes. More efficient than uint32 if values are often greater than 2^28.</td>
+            <td>uint32</td>
+            <td>int</td>
+            <td>int</td>
+            <td>uint32</td>
+            <td>uint</td>
+            <td>integer</td>
+            <td>Bignum or Fixnum (as required)</td>
+          </tr>
+        
+          <tr id="fixed64">
+            <td>fixed64</td>
+            <td>Always eight bytes. More efficient than uint64 if values are often greater than 2^56.</td>
+            <td>uint64</td>
+            <td>long</td>
+            <td>int/long</td>
+            <td>uint64</td>
+            <td>ulong</td>
+            <td>integer/string</td>
+            <td>Bignum</td>
+          </tr>
+        
+          <tr id="sfixed32">
+            <td>sfixed32</td>
+            <td>Always four bytes.</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>int</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>integer</td>
+            <td>Bignum or Fixnum (as required)</td>
+          </tr>
+        
+          <tr id="sfixed64">
+            <td>sfixed64</td>
+            <td>Always eight bytes.</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>int/long</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>integer/string</td>
+            <td>Bignum</td>
+          </tr>
+        
+          <tr id="bool">
+            <td>bool</td>
+            <td></td>
+            <td>bool</td>
+            <td>boolean</td>
+            <td>boolean</td>
+            <td>bool</td>
+            <td>bool</td>
+            <td>boolean</td>
+            <td>TrueClass/FalseClass</td>
+          </tr>
+        
+          <tr id="string">
+            <td>string</td>
+            <td>A string must always contain UTF-8 encoded or 7-bit ASCII text.</td>
+            <td>string</td>
+            <td>String</td>
+            <td>str/unicode</td>
+            <td>string</td>
+            <td>string</td>
+            <td>string</td>
+            <td>String (UTF-8)</td>
+          </tr>
+        
+          <tr id="bytes">
+            <td>bytes</td>
+            <td>May contain any arbitrary sequence of bytes.</td>
+            <td>string</td>
+            <td>ByteString</td>
+            <td>str</td>
+            <td>[]byte</td>
+            <td>ByteString</td>
+            <td>string</td>
+            <td>String (ASCII-8BIT)</td>
+          </tr>
+        
+      </tbody>
+    </table>
+  </body>
+</html>
+

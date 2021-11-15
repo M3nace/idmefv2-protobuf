@@ -1,0 +1,62 @@
+/**
+ * Intrusion Detection Message Exchange Format (IDMEF) version 2 (revision 0.3)
+ * Protobuf API
+ *
+ * The Source class contains information about the possible source(s) of the
+ * event(s) that generated this message
+ */
+syntax = "proto3";
+
+message Source {
+
+    // Standard UN/LOCODE location for this source
+    string UnLocation = 1;
+
+    // Internal location description (for internal sources)
+    string Location = 2;
+
+    // GPS coordinates for the source
+    string GeoLocation = 3;
+
+    // Free text human-readable additional note
+    string Note = 4;
+
+    // Threat intelligence information about the source
+    repeated string TI = 5;
+
+    // Source IP address (either version 4 or version 6)
+    string IP = 6;
+
+    // Hostname of this source. Should be a fully qualified domain name, but
+    // may not conform exactly because values extracted from logs, messages,
+    // DNS, etc. may themselves be malformed. An empty string can be used to
+    // explicitly state that this value was inquired but not found
+    // (missing DNS name)
+    string Hostname = 7;
+
+    // User ID or login responsible for the alert
+    string User = 8;
+
+    // Email address (e.g. the value of the "Reply-To" or "From" header
+    // inside a phishing e-mail)
+    string Email = 9;
+
+    // Protocols related to connections from/to this source/target.
+    // If several protocols are stacked, they must be ordered from the lowest
+    // (the closest to the medium) to the highest (the closest to the
+    // application) according to the ISO/OSI model
+    repeated string Protocol = 10;
+
+    // Source ports involved
+    repeated int32 Port = 11;
+
+    // Identifiers for attachments related to this source. Each identifier
+    // listed here MUST match the "Name" attribute for one of the attachments
+    // described using the "Attachment" class
+    repeated string Attachment = 12;
+
+    // Identifiers for observables related to this source. Each identifier
+    // listed here MUST match the "Name" attribute for one of the observables
+    // described using the "Observable" class
+    repeated string Observable = 13;
+}

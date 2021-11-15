@@ -1,0 +1,56 @@
+/**
+ * Intrusion Detection Message Exchange Format (IDMEF) version 2 (revision 0.3)
+ * Protobuf API
+ *
+ * The Target class contains information about the possible target(s) of the
+ * event(s) that generated this message
+ */
+syntax = "proto3";
+
+message Target {
+
+    // Standard UN/LOCODE location for this target
+    string UnLocation = 1;
+
+    // Internal location description (for internal target)
+    string Location = 2;
+
+    // GPS coordinates for the target
+    string GeoLocation = 3;
+
+    // Free text human-readable additional note
+    string Note = 4;
+
+    // Target IP address (either version 4 or version 6)
+    string IP = 5;
+
+    // Hostname of this target. Should be a fully qualified domain name, but
+    // may not conform exactly because values extracted from logs, messages,
+    // DNS, etc. may themselves be malformed. An empty string can be used to
+    // explicitly state that this value was inquired but not found
+    // (missing DNS name)
+    string Hostname = 6;
+
+    // Service(s)/process(es) impacted by the event/alert
+    string Service = 7;
+
+    // User ID or login responsible for the alert
+    string User = 8;
+
+    // Email address (e.g. the value of the "To" header inside a phishing
+    // e-mail)
+    string Email = 9;
+
+    // Target ports affected
+    repeated int32 Port = 10;
+
+    // Identifiers for attachments related to this target. Each identifier
+    // listed here MUST match the "Name" attribute for one of the attachments
+    // described using the "Attachment" class
+    repeated string Attachment = 11;
+
+    // Identifiers for observables related to this target. Each identifier
+    // listed here MUST match the "Name" attribute for one of the observables
+    // described using the "Observable" class
+    repeated string Observable = 12;
+}

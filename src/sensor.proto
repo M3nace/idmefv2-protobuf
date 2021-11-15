@@ -1,0 +1,39 @@
+/**
+ * Intrusion Detection Message Exchange Format (IDMEF) version 2 (revision 0.3)
+ * Protobuf API
+ *
+ * The Sensor class identifies the sensor used by the analyzer for its analysis
+ */
+syntax = "proto3";
+
+message Sensor {
+
+    // The sensor's IP address (either version 4 or version 6)
+    string IP = 1;
+
+    // Name of the sensor, which must be reasonably unique, however still bear
+    // some meaningful sense. Usually denotes the hierarchy of organizational
+    // units the detector belongs to and its own name. May also be used to
+    // help distinguish sensors running with the same IP address
+    string Name = 2;
+
+    // Hostname of this sensor. Should be a fully qualified domain name, but
+    // may not conform exactly because values extracted from logs, messages,
+    // DNS, etc. may themselves be malformed. An empty string can be used to
+    // explicitly state that this value was inquired but not found
+    // (missing DNS name)
+    string Hostname = 3;
+
+    // Generic name, brand, version
+    string Model = 4;
+
+    // Standard UN/LOCODE location
+    string UnLocation = 5;
+
+    // Internal location of the sensor
+    string Location = 6;
+
+    // String that describes the capture zone of the sensor in a serialized
+    // JSON string
+    string CaptureZone = 7;
+}

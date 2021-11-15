@@ -1,0 +1,105 @@
+/**
+ * Intrusion Detection Message Exchange Format (IDMEF) version 2 (revision 0.3)
+ * Protobuf API
+ *
+ * The Vector class contains information about the vector(s) of the event(s)
+ * that generated this message
+ */
+syntax = "proto3";
+
+message Vector {
+
+    // Possible categories for attack vectors
+    enum VectorCategoryEnum {
+        Vector_Unknown = 0;
+        Vector_Face = 1;
+        Vector_RunningMan = 2;
+        Vector_Human = 3;
+        Vector_Man = 4;
+        Vector_Woman = 5;
+        Vector_Chilren = 6;
+        Vector_Animal = 7;
+        Vector_Object = 8;
+        Vector_Blast = 9;
+        Vector_Fire = 10;
+        Vector_Wind = 11;
+        Vector_Snow = 12;
+        Vector_Rain = 13;
+        Vector_Chemical = 14;
+        Vector_Smoke = 15;
+        Vector_Vapors = 16;
+        Vector_Drug = 17;
+        Vector_Device = 18;
+        Vector_Drone = 19;
+        Vector_Car = 20;
+        Vector_Truck = 21;
+        Vector_Vehicle = 22;
+        Vector_Bird = 23;
+        Vector_Storm = 24;
+        Vector_HighTemperature = 25;
+        Vector_Artifact = 26;
+        Vector_AutonomousSystem = 27;
+        Vector_Directory = 28;
+        Vector_DomainName = 29;
+        Vector_EmailAddress = 30;
+        Vector_EmailMessage = 31;
+        Vector_File = 32;
+        Vector_IPv4Address = 33;
+        Vector_IPv6Address = 34;
+        Vector_Mutex = 35;
+        Vector_NetworkTraffic = 36;
+        Vector_Process = 37;
+        Vector_URL = 38;
+        Vector_UserAccount = 39;
+        Vector_WindowsRegistryKey = 40;
+        Vector_X509Certificate = 41;
+    }
+
+    // Possible sizes for attack vectors
+    enum VectorSizeEnum {
+        Vector_Small = 0;
+        Vector_Medium = 1;
+        Vector_Large = 2;
+        Vector_Huge = 3;
+    }
+
+    // Category for the detected "vector"
+    repeated VectorCategoryEnum Category = 1;
+
+    // Threat intelligence information about the vector
+    repeated string TI = 2;
+
+    // Name of the detected vector or "Unknown"
+    string Name = 3;
+
+    // Average size of the detected vector
+    VectorSizeEnum Size = 4;
+
+    // UN Location of the vector (e.g. Storm detected on Athens)
+    string UnLocation = 5;
+
+    // GPS coordinates for the vector, providing event geolocation (i.e. where
+    // a man/car/animal was detected, a storm/drought/fire risk was
+    // predicted, etc.)
+    string GeoLocation = 6;
+
+    // Estimated radius around the provided geolocation (error margin)
+    // in meters. The value can be very precise or approximated (e.g. 100 m)
+    int32 GeoRadius = 7;
+
+    // Internal location
+    string Location = 8;
+
+    // Free text human-readable additional note
+    string Note = 9;
+
+    // Identifiers for attachments related to this vector. Each identifier
+    // listed here MUST match the "Name" attribute for one of the attachments
+    // described using the "Attachment" class
+    repeated string Attachment = 10;
+
+    // Identifiers for observables related to this vector. Each identifier
+    // listed here MUST match the "Name" attribute for one of the observables
+    // described using the "Observable" class
+    repeated string Observable = 11;
+}

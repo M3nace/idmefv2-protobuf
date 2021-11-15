@@ -1,0 +1,149 @@
+/**
+ * Intrusion Detection Message Exchange Format (IDMEF) version 2 (revision 0.3)
+ * Protobuf API
+ */
+syntax = "proto3";
+
+message Analyzer {
+
+    // Possible analyzer categories
+    enum AnalyzerCategoryEnum {
+        Category_1DLiS = 0; // 1D LIDAR Sensor
+        Category_2DLiS = 1; // 2D LIDAR Sensor
+        Category_3DLiS = 2; // 3D LIDAR Sensor
+        Category_1DLaS = 3; // 1D Laser Sensor
+        Category_2DLaS = 4; // 2D Laser Sensor
+        Category_3DLaS = 5; // 3D Laser Sensor
+        Category_VAD = 6;   // Voice Activity Detection
+        Category_HAR = 7;   // Human Activity Recognition
+        Category_FRC = 8;   // Face Recognition Camera
+        Category_VNIR = 9;  // Visible and Near-InfraRed
+        Category_SWIR = 10; // Short Wavelength InfraRed
+        Category_LWIR = 11; // Long Wavelength InfraRed
+        Category_MWIR = 12; // Middle Wavelength InfraRed
+        Category_ADS = 13;  // Anti Drone System
+        Category_ODC = 14;  // Object Detection Camera
+        Category_WEA = 15;
+        Category_DDOS = 16; // Anti-DDoS protection
+        Category_SPAM = 17; // Detect Spam, Phishing, etc.
+        Category_AV = 18;   // Detect malware (signature)
+        Category_EDR = 19;  // Endpoint Detection and Response
+        Category_FW = 20;   // Firewall
+        Category_NIDS = 21; // Network Intrusion detection System
+        Category_HIDS = 22; // Host Intrusion detection System
+        Category_WIDS = 23; // Wifi Intrusion detection System
+        Category_PROX = 24; // Proxy: Detect trying to use wrong ACL or wrong TLS session
+        Category_WAF = 25;  // Web Application Firewall
+        Category_HPT = 26;  // Honeypot
+        Category_LOG = 27;  // Log analysis
+        Category_IAM = 28;  // Identity & Access Management
+        Category_VPN = 29;  // Virtual Private Network
+        Category_ETL = 30;  // Ex : Logstash, Fluend, Vector
+        Category_RASP = 31; // Runtime Application Self Protection
+        Category_BAST = 32; // Clientless remote desktop gateway
+        Category_NAC = 33;  // Network Access Control
+        Category_SIEM = 34; // System Information and Event Management
+        Category_NMS = 35;  // Network Management System
+    }
+
+    // Possible analyzer types
+    enum AnalyzerTypeEnum {
+        Type_Cyber = 0;         // The analyzer is a cyber analyzer
+        Type_Physical = 1;      // The analyzer is a physical analyzer
+        Type_Availability = 2;  // The analyzer is an availability analyzer
+        Type_Combined = 3;      // The analyzer is an other type of analyzer
+    }
+
+    // Possible types of data/sensors
+    enum AnalyzerDataEnum {
+        Data_Light = 0;
+        Data_Noise = 1;
+        Data_Touch = 2;
+        Data_Images = 3;
+        Data_Vibration = 4;
+        Data_Lidar = 5;
+        Data_Thermic = 6;
+        Data_Seismic = 7;
+        Data_Temperature = 8;
+        Data_Rain = 9;
+        Data_Water = 10;
+        Data_Humidity = 11;
+        Data_Particles = 12;
+        Data_Contact = 13;
+        Data_MagneticField = 14;
+        Data_Acoustics = 15;
+        Data_Fog = 16;
+        Data_External = 17;
+        Data_Reporting = 18;
+        Data_Connection = 19;
+        Data_Datagram = 20;
+        Data_Content = 21;
+        Data_Data = 22;
+        Data_File = 23;
+        Data_Flow = 24;
+        Data_Log = 25;
+        Data_Protocol = 26;
+        Data_Host = 27;
+        Data_Network = 28;
+        Data_Alert = 29;
+        Data_Relay = 30;
+        Data_Auth = 31;
+        Data_SNMP = 32;         // Simple Network Management Protocol
+    }
+
+    // Possible detection methods
+    enum AnalyzerMethodEnum {
+        Method_Biometric = 0;
+        Method_Signature = 1;
+        Method_Monitor = 2;
+        Method_Policy = 3;
+        Method_Statistical = 4;
+        Method_AI = 5;
+        Method_Heat = 6;
+        Method_Movement = 7;
+        Method_Blackhole = 8;
+        Method_Heuristic = 9;
+        Method_Integrity = 10;
+        Method_Honeypot = 11;
+        Method_Tarpit = 12;
+        Method_Recon = 13;
+        Method_Correlation = 14;
+        Method_Threshold = 15;      // Detection threshold for values
+    }
+
+    // IP address (either version 4 or version 6)
+    string IP = 1;
+
+    // Name of the analyzer, which must be reasonably unique, however still
+    // bear some meaningful sense. Usually denotes hierarchy of
+    // organizational units which detector belongs to and its own name or
+    // it can distinguish multiple analyzers running with the same IP
+    string Name = 2;
+
+    // Hostname of this analyzer. SHOULD be a fully-qualified domain name
+    string Hostname = 3;
+
+    // Analyzer type
+    AnalyzerTypeEnum Type = 4;
+
+    // Generic name, brand, version
+    string Model = 5;
+
+    // Analyzer categories
+    repeated AnalyzerCategoryEnum Category = 6;
+
+    // Data analyzed for detection
+    repeated AnalyzerDataEnum Data = 7;
+
+    // Detection method
+    repeated AnalyzerMethodEnum Method = 8;
+
+    // GPS coordinates for the sensor
+    string GeoLocation = 9;
+
+    // Standard UN/LOCODE location
+    string UnLocation = 10;
+
+    // Internal location of the agent/sensor
+    string Location = 11;
+}

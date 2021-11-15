@@ -1,0 +1,21 @@
+/**
+ * Intrusion Detection Message Exchange Format (IDMEF) version 2 (revision 0.3)
+ * Protobuf API
+ *
+ * The Observable class contains information about metadata linked to a
+ * source, target or vector
+ */
+syntax = "proto3";
+
+message Observable {
+
+    // Unique identifier among observables that can be used to reference this
+    // observable from other classes using the "Observable" attribute
+    string Name = 1;
+
+    // Name of the reference from where the observable is specified
+    string Reference = 2;
+
+    // Observable content
+    string Content = 3;
+}

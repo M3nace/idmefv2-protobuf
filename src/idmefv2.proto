@@ -1,0 +1,413 @@
+/**
+ * Intrusion Detection Message Exchange Format (IDMEF) version 2 (revision 0.3)
+ * Protobuf API
+ */
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+import "analyzer.proto";
+import "attachment.proto";
+import "observable.proto";
+import "sensor.proto";
+import "source.proto";
+import "target.proto";
+import "vector.proto";
+
+// Root message
+message IDMEF {
+
+    // Possible alert categories
+    enum CategoryEnum {
+        /* Or 'Unsolicited Bulk Email', this means that the recipient has
+        * not granted verifiable permission for the message to be sent and that
+        * the message is sent as part of a larger collection of messages, all
+        * having a functionally comparable content. This IOC refers to
+        * resources, which make up a SPAM infrastructure, be it a harvesters
+        * like address verification, URLs in spam e-mails etc. */
+        Category_Abusive_Spam = 0;
+
+        /* Discretization or discrimination of somebody, e.g. cyber stalking,
+        * racism or threats against one or more individuals. */
+        Category_Abusive_Harassment = 1;
+
+        /* Child Sexual Exploitation (CSE), Sexual content, glorification of
+        * violence, etc. */
+        Category_Abusive_Illicit = 2;
+
+        /* System infected with malware, e.g. PC, smartphone or server infected
+        * with a rootkit. Most often this refers to a connection to a sinkholed
+        * C2 server */
+        Category_Malicious_System = 3;
+
+        /* Command-and-control server contacted by malware on infected
+        * systems */
+        Category_Malicious_Botnet = 4;
+
+        /* URI used for malware distribution, e.g. a download URL included in
+        * fake invoice malware spam or exploit-kits (on websites). */
+        Category_Malicious_Distribution = 5;
+
+        /* URI hosting a malware configuration file, e.g. web-injects for a
+        * banking trojan */
+        Category_Malicious_Configuration = 6;
+
+        /* Attacks that send requests to a system to discover weaknesses.
+        * This also includes testing processes to gather information on hosts,
+        * services and accounts. Examples: fingerd, DNS querying, ICMP, SMTP
+        * (EXPN, RCPT, ...), port scanning. */
+        Category_Recon_Scanning = 7;
+
+        /* Observing and recording of network traffic (wiretapping). */
+        Category_Recon_Sniffing = 8;
+
+        /* Gathering information from a human being in a non-technical way
+        * (e.g. lies, tricks, bribes, or threats). */
+        Category_Recon_SocialEngineering = 9;
+
+        /* An attempt to compromise a system or to disrupt any service by
+        * exploiting vulnerabilities with a standardised identifier such as
+        * CVE name (e.g. buffer overflow, backdoor, cross site
+        * scripting, etc.) */
+        Category_Attempt_Exploit = 10;
+
+        /* Multiple login attempts (Guessing / cracking of passwords, brute
+        * force). This IOC refers to a resource, which has been observed to
+        * perform brute-force attacks over a given application protocol. */
+        Category_Attempt_Login = 11;
+
+        /* An attack using an unknown exploit. */
+        Category_Attempt_NewSignature = 12;
+
+        /* Compromise of a system where the attacker gained administrative
+        * privileges. */
+        Category_Intrusion_AdminCompromise = 13;
+
+        /* Compromise of a system using an unprivileged (user/service)
+        * account. */
+        Category_Intrusion_UserCompromise = 14;
+
+        /* Compromise of an application by exploiting (un-)known software
+        * vulnerabilities, e.g. SQL injection. */
+        Category_Intrusion_AppCompromise = 15;
+
+        /* Compromise of a system, e.g. unauthorised logins or commands.
+        * This includes compromising attempts on honeypot systems. */
+        Category_Intrusion_SysCompromise = 16;
+
+        /* Physical intrusion, e.g. into corporate building or data-centre. */
+        Category_Intrusion_Burglary = 17;
+
+        /* Denial of Service attack, e.g. sending specially crafted requests
+        * to a web application which causes the application to crash or
+        * slow down. */
+        Category_Availability_DoS = 18;
+
+        /* Distributed Denial of Service attack, e.g. SYN-Flood or UDP-based
+        * reflection/amplification attacks. */
+        Category_Availability_DDoS = 19;
+
+        /* Software misconfiguration resulting in service availability issues,
+        * e.g. DNS server with outdated DNSSEC Root Zone KSK. */
+        Category_Availability_Misconf = 20;
+
+        Category_Availability_Theft = 21;
+
+        /* Physical sabotage, e.g cutting wires or malicious arson. */
+        Category_Availability_Sabotage = 22;
+
+        /* Outage caused e.g. by air condition failure or natural disaster. */
+        Category_Availability_Outage = 23;
+
+        /* Failure, malfunction (e.g. : bug, wear, faults, etc.) */
+        Category_Availability_Failure = 24;
+
+        /* Unauthorised access to information, e.g. by abusing stolen login
+        * credentials for a system or application, intercepting traffic or
+        * gaining access to physical documents. */
+        Category_Information_UnauthorizedAccess = 25;
+
+        /* Unauthorised modification of information, e.g. by an attacker
+        * abusing stolen login credentials for a system or application or
+        * a ransomware encrypting data. Also includes defacements. */
+        Category_Information_UnauthorizedModification = 26;
+
+        /* Loss of data, e.g. caused by harddisk failure or physical theft. */
+        Category_Information_DataLoss = 27;
+
+        /* Leaked confidential information like credentials or personal data. */
+        Category_Information_DataLeak = 28;
+
+        /* Using resources for unauthorised purposes including profit-making
+        * ventures, e.g. the use of e-mail to participate in illegal profit
+        * chain letters or pyramid schemes. */
+        Category_Fraud_UnauthorizedUsage = 29;
+
+        /* Offering or Installing copies of unlicensed commercial software or
+        * other copyright protected materials (Warez). */
+        Category_Fraud_Copyright = 30;
+
+        /* Type of attack in which one entity illegitimately impersonates the
+        * identity of another in order to benefit from it. */
+        Category_Fraud_Masquerade = 31;
+
+        /* Masquerading as another entity in order to persuade the user to
+        * reveal private credentials. This IOC most often refers to a URL,
+        * which is used to phish user credentials. */
+        Category_Fraud_Phishing = 32;
+
+        /* Publicly accessible services offering weak crypto, e.g. web
+        * servers susceptible to POODLE/FREAK attacks. */
+        Category_Vulnerable_Crypto = 33;
+
+        /* Publicly accessible services that can be abused for conducting DDoS
+        * reflection/amplification attacks, e.g. DNS open-resolvers or NTP
+        * servers with monlist enabled. */
+        Category_Vulnerable_DDoS = 34;
+
+        /* Potentially unwanted publicly accessible services, e.g. Telnet, RDP
+        * or VNC. */
+        Category_Vulnerable_Surface = 35;
+
+        /* Publicly accessible services potentially disclosing sensitive
+        * information, e.g. SNMP or Redis. */
+        Category_Vulnerable_Disclosure = 36;
+
+        /* A system which is vulnerable to certain attacks.
+        * Example: misconfigured client proxy settings (example: WPAD),
+        * outdated operating system version, XSS vulnerabilities, etc. */
+        Category_Vulnerable_System = 37;
+
+        /* A hazard originating from solid earth. This term is used
+        * interchangeably with the term geological hazard. */
+        Category_Geophysical_Earthquake = 38;
+        /* A hazard originating from solid earth. This term is used
+        * interchangeably with the term geological hazard. */
+        Category_Geophysical_MassMovement = 39;
+        /* A hazard originating from solid earth. This term is used
+        * interchangeably with the term geological hazard. */
+        Category_Geophysical_Volcanic = 40;
+
+        /* A hazard caused by short-lived, micro- to meso-scale extreme
+        * weather and atmospheric conditions that last from minutes to days. */
+        Category_Meteorological_Temperature = 41;
+        /* A hazard caused by short-lived, micro- to meso-scale extreme
+        * weather and atmospheric conditions that last from minutes to days. */
+        Category_Meteorological_Fog = 42;
+        /* A hazard caused by short-lived, micro- to meso-scale extreme
+        * weather and atmospheric conditions that last from minutes to days. */
+        Category_Meteorological_Storm = 43;
+
+        /* A hazard caused by the occurrence, movement, and distribution
+        * of surface and subsurface freshwater and saltwater. */
+        Category_Hydrological_Flood = 44;
+        /* A hazard caused by the occurrence, movement, and distribution
+        * of surface and subsurface freshwater and saltwater. */
+        Category_Hydrological_Landslide = 45;
+        /* A hazard caused by the occurrence, movement, and distribution
+        * of surface and subsurface freshwater and saltwater. */
+        Category_Hydrological_Wave = 46;
+
+        /* A hazard caused by long-lived, meso- to macro-scale atmospheric
+        * processes ranging from intra-seasonal to multi-decadal climate
+        * variability.​ */
+        Category_Climatological_Drought = 47;
+        /* A hazard caused by long-lived, meso- to macro-scale atmospheric
+        * processes ranging from intra-seasonal to multi-decadal climate
+        * variability.​ */
+        Category_Climatological_LakeOutburst = 48;
+        /* A hazard caused by long-lived, meso- to macro-scale atmospheric
+        * processes ranging from intra-seasonal to multi-decadal climate
+        * variability.​ */
+        Category_Climatological_Wildfire = 49;
+
+        /* A hazard caused by the exposure to living organisms and their
+        * toxic substances (e.g. venom, mold) or vector-borne diseases that
+        * they may carry. Examples are venomous wildlife and insects, poisonous
+        * plants, and mosquitoes carrying disease-causing agents such as
+        * parasites, bacteria, or viruses (e.g. malaria). */
+        Category_Biological_Epidemic = 50;
+        /* A hazard caused by the exposure to living organisms and their
+        * toxic substances (e.g. venom, mold) or vector-borne diseases that
+        * they may carry. Examples are venomous wildlife and insects, poisonous
+        * plants, and mosquitoes carrying disease-causing agents such as
+        * parasites, bacteria, or viruses (e.g. malaria). */
+        Category_Biological_Insect = 51;
+        /* A hazard caused by the exposure to living organisms and their
+        * toxic substances (e.g. venom, mold) or vector-borne diseases that
+        * they may carry. Examples are venomous wildlife and insects, poisonous
+        * plants, and mosquitoes carrying disease-causing agents such as
+        * parasites, bacteria, or viruses (e.g. malaria). */
+        Category_Biological_Animal = 52;
+
+        /* A hazard caused by asteroids, meteoroids, and comets as they pass
+        * near-earth, enter the Earth’s atmosphere, and/or strike the
+        * Earth, and by changes in interplanetary conditions that effect the
+        * Earth’s magnetosphere, ionosphere, and thermosphere. */
+        Category_Extraterrestrial_Impact = 53;
+        /* A hazard caused by asteroids, meteoroids, and comets as they pass
+        * near-earth, enter the Earth’s atmosphere, and/or strike the
+        * Earth, and by changes in interplanetary conditions that effect the
+        * Earth’s magnetosphere, ionosphere, and thermosphere. */
+        Category_Extraterrestrial_SpaceWeather = 54;
+
+        /* All incidents which don't fit in one of the given categories should
+        * be put into this class or the incident is not categorised. */
+        Category_Other_Uncategorized = 55;
+
+        /* The categorisation of the incident is unknown/undetermined. */
+        Category_Other_Undetermined = 56;
+
+        /* Meant for testing. */
+        Category_Test_Test = 57;
+    }
+
+    // Possible alert severities
+    enum SeverityEnum {
+        Severity_Unknown = 0;
+        Severity_Info = 1;
+        Severity_Low = 2;
+        Severity_Medium = 3;
+        Severity_High = 4;
+    }
+
+    // Possible alert causes
+    enum CauseEnum {
+        Cause_Normal = 0;
+        Cause_Error = 1;
+        Cause_Malicious = 2;
+        Cause_Malfunction = 3;
+        Cause_Natural = 4;
+        Cause_Unknown = 5;
+    }
+
+    // Possible alert statuses
+    enum StatusEnum {
+        Status_Event = 0;
+        Status_Incident = 1;
+    }
+
+    // Version of the IDMEFv2 Format
+    string Version = 1;
+
+    // 128-bit Universally Unique IDentifier (UUID)
+    // either UUID version 4 (random) or 5 (SHA-1)
+    string ID = 2;
+
+    // Tenant ID to support multi-tenancy
+    // (e.g. decentralized infrastructure, local agency, subsidiary 
+    // company, etc.). Should be used when there are multiple
+    // sites/locations or multiple tenants (e.g. MSSPs)
+    string Entity = 3;
+
+    // The ENISA:RIST incident category & subcategory
+    repeated CategoryEnum Category = 4;
+
+    // Alert cause's origin, if known at the time of detection.
+    // If unknown, this key should not be defined and may be filled later
+    // on by a manager or a human operator
+    CauseEnum Cause = 5;
+
+    // Short free text human-readable description
+    string Description = 6;
+
+    // Alert state in the overall alert lifecycle
+    StatusEnum Status = 7;
+
+    // Severity of the alert
+    SeverityEnum Severity = 8;
+
+    // Confidence of detector in its own reliability of this particular
+    // detection. (0 – surely false, 1 – no doubts)s
+    float Confidence = 9;
+
+    // Free text human-readable additional note, possibly longer
+    // description of incident if not obvious
+    string Note = 10;
+
+    // Message creation timestamp. May point out delay between detection
+    // and processing of data
+    google.protobuf.Timestamp CreateTime = 11;
+
+    // Deduced start of the event, or just time of the event if it is solitary
+    google.protobuf.Timestamp StartTime = 12;
+
+    // Deduced end of the event
+    google.protobuf.Timestamp CeaseTime = 13;
+
+    // Message deletion timestamp. MUST be specified if the message has to be
+    // deleted after this date for technical, organizational or ethical reasons
+    google.protobuf.Timestamp DeleteTime = 14;
+
+    // Alternative identifiers; strings which help pair the event to internal
+    // systems' information (for example tickets in request tracking systems)
+    repeated string AltNames = 15;
+
+    // Alternate category from another reference than RIST (e.g. MISP,
+    // MITRE ATT@CK or another proprietary internal reference)
+    repeated string AltCategory = 16;
+
+    // References to known sources, related to the alert and/or vulnerability,
+    // and specific to this alert. This MAY be a URL to additional info, or a
+    // URN (according to RFC 2141) in a registered (IANA) or unregistered
+    // ad-hoc namespace bearing reasonable information value and uniqueness,
+    // such as "urn:cve:CVE-2013-2266
+    repeated string Ref = 17;
+
+    // Identifiers for the  messages which were used as information sources to
+    // create this message, in case the message has been created based on
+    // correlation/analysis/deduction from other messages
+    repeated string CorrelID = 18;
+
+    // List of IDMEF fields that are shared (with the same value) by all
+    // aggregated events. Should be sent mostly by intermediary nodes, which
+    // detect duplicates, or aggregate events, spanning multiple detection
+    // windows, into a longer one.
+    // IDMEF fields syntax:
+    // <field> for top-level fields. E.g. "CeaseTime"
+    // <class>.<field> for subfields. E.g. "Source.IP"
+    // <field>(<N>) to reference the Nth element (0-based) inside a list.
+    // N defaults to 0 if omitted. E.g. "Source.IP(0)" refers to the first IP
+    // of the first source.
+    // The "StartTime" and "CeaseTime" fields are used to describe the
+    // aggregation timeframe, in conjunction with this field
+    repeated string AggrCondition = 19;
+
+    // Identifiers of previous messages which are obsoleted by this message.
+    // The obsoleted alert should no longer be used. This field can be used
+    // to "update" an alert
+    repeated string PredID = 20;
+
+    // Other messages related to this message
+    repeated string RelID = 21;
+
+    // ------------- Subclasses -------------
+
+    // The Analyzer class identifies the analyzer from which the message
+    // originates
+    Analyzer Analyzer = 22;
+
+    // The Sensor class identifies the sensor used by the analyzer for
+    // its analysis
+    repeated Sensor Sensor = 23;
+
+    // The Source class contains information about the possible source(s)
+    // of the event(s) that generated this message
+    repeated Source Source = 24;
+
+    // The Target class contains information about the possible target(s)
+    // of the event(s) that generated this message
+    repeated Target Target = 25;
+
+    // The Vector class contains information about the vector(s) of the
+    // event(s) that generated this message
+    repeated Vector Vector = 26;
+
+    // The Attachment class contains information about data linked to a
+    // source, target or vector
+    repeated Attachment Attachment = 27;
+
+    // The Observable class contains information about metadata linked to
+    // a source, target or vector
+    repeated Observable Observable = 28;
+}
