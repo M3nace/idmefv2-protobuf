@@ -5,11 +5,17 @@
 
 > Quick &amp; dirty implementation of IDMEFv2 with protobuf
 
-# Prerequisities
+## Prerequisities
 
 - Protobuf 3: https://github.com/protocolbuffers/protobuf
 - proto-gen-doc: https://github.com/pseudomuto/protoc-gen-doc
 
-# References
+## References
 
 https://github.com/SECEF/idmefv2-definition
+
+## Changes with original definition
+
+- Enumerations are prefixed (mandatory in protobuf)
+- TODO: Verifications
+- TODO: Tests
